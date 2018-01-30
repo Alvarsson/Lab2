@@ -36,6 +36,18 @@ public class Level extends Observable {
 
     }
 
+    void moveNorth(){
+        currentRoom = currentRoom.northWall;
+    }
+    void moveEast(){
+        currentRoom = currentRoom.eastWall;
+    }
+    void moveWest(){
+        currentRoom = currentRoom.westWall;
+    }
+    void moveSouth(){
+        currentRoom = currentRoom.southWall;
+    }
     //returnerar array med passande värden för leveln i x och y led.
     public int[] levelStorlek() {
         int maxX =0;

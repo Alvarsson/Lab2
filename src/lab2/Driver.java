@@ -6,6 +6,20 @@ import lab2.level.Level;
 import lab2.level.LevelGUI;
 import lab2.level.Room;
 
+    /*level.firstLocation(level.room_array.get(0));
+      level.room_array.get(0).connectWestTo(level.room_array.get(1));
+      level.room_array.get(0).connectSouthTo(level.room_array.get(4));
+      level.room_array.get(1).connectSouthTo(level.room_array.get(2));
+      level.room_array.get(2).connectSouthTo(level.room_array.get(5));
+      level.room_array.get(2).connectNorthTo(level.room_array.get(1));
+      level.room_array.get(2).connectEastTo(level.room_array.get(4));
+      level.room_array.get(3).connectNorthTo(level.room_array.get(4));
+      level.room_array.get(3).connectWestTo(level.room_array.get(5));
+      level.room_array.get(4).connectWestTo(level.room_array.get(2));
+      level.room_array.get(4).connectSouthTo(level.room_array.get(3));
+      level.room_array.get(5).connectEastTo(level.room_array.get(3));
+      level.room_array.get(5).connectNorthTo(level.room_array.get(2));*/
+
 public class Driver {
 
     public void run() {
@@ -24,19 +38,43 @@ public class Driver {
         //skapar ett LevelGUI
         LevelGUI newlvl = new LevelGUI(level, "fisk");
 
-        //Ändra startrum genom att byta index för arrayen.
         level.firstLocation(level.room_array.get(0));
-        level.room_array.get(0).connectWestTo(level.room_array.get(1));
-        level.room_array.get(0).connectSouthTo(level.room_array.get(4));
-        level.room_array.get(1).connectSouthTo(level.room_array.get(2));
-        level.room_array.get(2).connectSouthTo(level.room_array.get(5));
-        level.room_array.get(2).connectNorthTo(level.room_array.get(1));
-        level.room_array.get(2).connectEastTo(level.room_array.get(4));
-        level.room_array.get(3).connectNorthTo(level.room_array.get(4));
-        level.room_array.get(3).connectWestTo(level.room_array.get(5));
-        level.room_array.get(4).connectWestTo(level.room_array.get(2));
-        level.room_array.get(4).connectSouthTo(level.room_array.get(3));
-        level.room_array.get(5).connectEastTo(level.room_array.get(3));
-        level.room_array.get(5).connectNorthTo(level.room_array.get(2));
+        createConnection(level, 0, 1, "west");
+        createConnection(level,0,4,"south");
+        createConnection(level,1,2,"south");
+        createConnection(level,2,5,"south");
+        createConnection(level,2,1,"north");
+        createConnection(level,2,4,"east");
+        createConnection(level,3,4,"north");
+        createConnection(level,3,5,"west");
+        createConnection(level,4,2,"west");
+        createConnection(level,4,3,"south");
+        createConnection(level,5,3,"east");
+        createConnection(level,5,2,"north");
+        //Ändra startrum genom att byta index för arrayen.
+
+    }
+    private void createConnection(Level level, int room1, int room2, String side) {
+        try{
+            switch (side) {
+                case "west":
+                    level.room_array.get(room1).connectWestTo(level.room_array.get(room2));
+                    break;
+                case "north":
+                    level.room_array.get(room1).connectNorthTo(level.room_array.get(room2));
+                    break;
+                case "east":
+                    level.room_array.get(room1).connectEastTo(level.room_array.get(room2));
+                    break;
+                case "south":
+                    level.room_array.get(room1).connectSouthTo(level.room_array.get(room2));
+                    break;
+                default:
+                    System.out.println("error ditt fel");
+                    break;
+            }
+        }   catch (IndexOutOfBoundsException e){
+                System.out.println("That room didn't fit");
+        }
     }
 }

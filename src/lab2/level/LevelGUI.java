@@ -11,7 +11,6 @@ import java.awt.*;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-
 @SuppressWarnings("deprecation")
 public class LevelGUI implements Observer {
 
@@ -101,31 +100,29 @@ public class LevelGUI implements Observer {
 
             public void keyPressed(KeyEvent arg0) {
             }
+
             //Vid släpp av knapp går spelaren åt rätt håll till rätt rum, ifall vägen finns.
             public void keyReleased(KeyEvent arg0) {
-                if(arg0.getKeyCode() == KeyEvent.VK_A) {
-                    if(lv.currentRoom.westWall != null) {
-                        lv.currentRoom = lv.currentRoom.westWall;
-                        //System.out.println("A pressed");
-                    }
-                } else if(arg0.getKeyCode() == KeyEvent.VK_W) {
-                    if(lv.currentRoom.northWall != null) {
-                        lv.currentRoom = lv.currentRoom.northWall;
-                    }
-                } else if(arg0.getKeyCode() == KeyEvent.VK_D) {
-                    if(lv.currentRoom.eastWall != null) {
-                        lv.currentRoom = lv.currentRoom.eastWall;
-                    }
-                } else if(arg0.getKeyCode() == KeyEvent.VK_S) {
-                    if(lv.currentRoom.southWall != null) {
-                        lv.currentRoom = lv.currentRoom.southWall;
-                    }
+
+                char key = arg0.getKeyChar(); // key = pressed down key released
+
+                if (key == 'a' && lv.currentRoom.westWall != null) { // key pressed a
+                    lv.moveWest();
+                } else if (key == 'w' && lv.currentRoom.northWall != null) { // key pressed w
+                    lv.moveNorth();
+                } else if (key == 'd' && lv.currentRoom.eastWall != null) { // key pressed d
+                    lv.moveEast();
+                } else if (key == 's' && lv.currentRoom.southWall != null) { // key pressed s
+                    lv.moveSouth();
+                } else{
+                    return;
                 }
                 //updaterar och kallar på setchanged, notifyObserver i level.
                 lv.update();
             }
 
             public void keyTyped(KeyEvent event) {
+
             }
         }
     }
